@@ -117,10 +117,9 @@
 </head>
 <body>
     <h1>Live Cricket | Exciting Test Match between Australia and India</h1>
-    <a href="#"><img src="image.jpeg" alt="Australia vs India Test Match - Exciting Cricket Action"></a>
+    <!-- <a href="#"><img src="image.jpeg" alt="Australia vs India Test Match - Exciting Cricket Action"></a> Title -->
     <h2>Live Scores and Stats</h2>
-  <div class="internet-bar" id="internet-bar">Checking internet connection...</div>
-  <p>Follow the live scores, commentary, and updates of the thrilling Test match between Australia and India. Stay informed and enjoy the intense cricket battle between these two cricket giants.</p>
+  <div class="internet-bar" id="internet-bar">Checking internet connection...</div> 
 
   <div class="score-container">
     <div class="score-item">
@@ -291,13 +290,13 @@
       }
     }
     
-    // Function to refresh the page and fetch data every 15 seconds
+    // Function to refresh the page and fetch data every 20 seconds
     function refreshPage() {
       showLoader();
       setTimeout(() => {
         fetchData();
         checkInternetConnection();
-        refreshPage(); // Add this line to call refreshPage() again after 15 seconds
+        refreshPage(); // Add this line to call refreshPage() again after 20 seconds
       }, 20000);
     }
 
