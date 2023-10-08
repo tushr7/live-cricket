@@ -1,308 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Cricket Score</title>
-  <style>
-    /* Add your custom styles here */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: snow;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Cricket Score</title>
+    <style>
+      /* Add your custom styles here */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: snow;
+      }
 
-    h1 {
-      text-align: center;
-    }
+      h1 {
+        text-align: center;
+      }
 
-    .score-container {
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      color:rgba(0, 0, 0, 0.9)
-    }
+      .score-container {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        color: rgba(0, 0, 0, 0.9);
+      }
 
-    .score-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+      .score-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
 
-    .score-item span {
-      font-weight: bold;
-    }
+      .score-item span {
+        font-weight: bold;
+      }
 
-    .player-container {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+      .player-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
 
-    .player-details {
-      margin-left: 10px;
-    }
+      .player-details {
+        margin-left: 10px;
+      }
 
-    .player-name {
-      font-weight: bold;
-    }
+      .player-name {
+        font-weight: bold;
+      }
 
-    .player-stat {
-      color: #888;
-    }
+      .player-stat {
+        color: #888;
+      }
 
-    .internet-bar {
-      background-color: #2ecc71;
-      color: #fff;
-      padding: 2px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 0px;
-      margin-bottom: 20px;
-    }
+      .internet-bar {
+        background-color: #2ecc71;
+        color: #fff;
+        padding: 2px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 0px;
+        margin-bottom: 20px;
+      }
 
-    .no-internet {
-      background-color: #e74c3c;
-    }
+      .no-internet {
+        background-color: #e74c3c;
+      }
 
-    .loader {
-      display: block;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+      .loader {
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 5px;
-      background-color: #3498db;
-      animation: fillLoader 15s linear;
-    }
-
-    @keyframes fillLoader {
-      0% {
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 0;
+        height: 5px;
+        background-color: #3498db;
+        animation: fillLoader 15s linear;
       }
-      100% {
+
+      @keyframes fillLoader {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+      .yellow-score {
+        color: yellow;
+      }
+
+      .green-score {
+        color: green;
+      }
+
+      .dark-green-score {
+        color: darkgreen;
+      }
+
+      .orange-score {
+        color: orange;
+      }
+
+      img {
         width: 100%;
       }
-    }
-    .yellow-score {
-      color: yellow;
-    }
-
-    .green-score {
-      color: green;
-    }
-
-    .dark-green-score {
-      color: darkgreen;
-    }
-
-    .orange-score {
-      color: orange;
-    }
-    
-    img {
-        width: 100%;
-    }
-  </style>
-</head>
-<body>
+    </style>
+  </head>
+  <body>
     <!-- <h1>Live Cricket | Exciting Test Match between Australia and India</h1> Headline -->
     <!-- <a href="#"><img src="image.jpeg" alt="Australia vs India Test Match - Exciting Cricket Action"></a> Title -->
     <h2>Live Scores and Stats</h2>
-  <div class="internet-bar" id="internet-bar">Checking internet connection...</div> 
-
-  <div class="score-container">
-    <div class="score-item">
-      <span>Status:</span>
-      <span id="status"></span>
+    <h2 id="match-name"></h2>
+    <div id="info">
+      <p id="series-name"></p>
+      <p id="match-format"></p>
+      <p id="match-description"></p>
+      <p id="match-type"></p>
+      <p id="match-state"></p>
+      <p id="match-status"></p>
     </div>
-    <div class="score-item">
-      <span>Score:</span>
-      <span id="score"></span>
+    <div class="internet-bar" id="internet-bar">
+      Checking internet connection...
     </div>
-    <div class="score-item">
-      <span>Wickets:</span>
-      <span id="wickets"></span>
+
+    <div class="score-container">
+      <div class="score-item">
+        <span>Status:</span>
+        <span id="status"></span>
+      </div>
+      <div class="score-item">
+        <span>Score:</span>
+        <span id="score"></span>
+      </div>
+      <div class="score-item">
+        <span>Wickets:</span>
+        <span id="wickets"></span>
+      </div>
+      <div class="score-item">
+        <span>Overs:</span>
+        <span id="overs"></span>
+      </div>
     </div>
-    <div class="score-item">
-      <span>Overs:</span>
-      <span id="overs"></span>
+
+    <div class="player-container">
+      <div class="player-details">
+        <div class="player-name" id="batsman-name"></div>
+        <div class="player-stat" id="batsman-stats"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="player-container">
-    <div class="player-details">
-      <div class="player-name" id="batsman-name"></div>
-      <div class="player-stat" id="batsman-stats"></div>
+    <div class="player-container">
+      <div class="player-details">
+        <div class="player-name" id="bowler-name"></div>
+        <div class="player-stat" id="bowler-stats"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="player-container">
-    <div class="player-details">
-      <div class="player-name" id="bowler-name"></div>
-      <div class="player-stat" id="bowler-stats"></div>
-    </div>
-  </div>
+    <script>
+      function fetchData() {
+        const url =
+          "https://www.cricbuzz.com/api/cricket-match/commentary/75437"; // Replace with your URL
 
-  <script>
-    function fetchData() {
-      const url = "https://www.cricbuzz.com/api/cricket-match/commentary/65805"; // Replace with your URL
+        const headers = new Headers();
+        headers.append("Accept", "application/json");
 
-      const headers = new Headers();
-      headers.append("Accept", "application/json");
+        const cacheControl = "no-cache";
 
-      const cacheControl = "no-cache";
+        // Fetch JSON data from the URL
+        fetch(url, {
+          method: "GET",
+          headers: headers,
+          cache: cacheControl,
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            const matchDetails = json.matchHeader;
+            const miniscore = json.miniscore;
+            const matchScoreDetails = json.matchScoreDetails;
 
-      // Fetch JSON data from the URL
-      fetch(url, {
-        method: "GET",
-        headers: headers,
-        cache: cacheControl,
-      })
-        .then((response) => response.json())
-        .then((json) => {
+            //Match Information
+            const team1 = matchDetails.team1.name;
+            const team2 = matchDetails.team2.name;
+            const seriesName = matchDetails.seriesName;
+            const matchFormat = matchDetails.matchFormat;
+            const matchDescription = matchDetails.matchDescription;
+            const matchType = matchDetails.matchType;
+            const matchState = matchDetails.state;
+            const matchCrrStatus = matchDetails.status;
 
-          const miniscore = json.miniscore;
-          const matchScoreDetails = json.matchScoreDetails;
+            const score = miniscore.batTeam.teamScore;
+            const wickets = miniscore.batTeam.teamWkts;
+            const overs = miniscore.overs;
+            const stats = miniscore.status;
 
-          const score = miniscore.batTeam.teamScore;
-          const wickets = miniscore.batTeam.teamWkts;
-          const overs = miniscore.overs;
-          const stats = miniscore.status;
+            // Update the HTML elements with the fetched data
+            // Match Info.
+            document.getElementById(
+              "match-name"
+            ).innerHTML = `${team1} vs ${team2} `;
+            document.getElementById("series-name").innerText = seriesName;
+            document.getElementById("match-format").innerText = matchFormat;
+            document.getElementById("match-description").innerText =
+              matchDescription;
+            document.getElementById("match-type").innerText = matchType;
+            document.getElementById("match-state").innerText = matchState;
+            document.getElementById("match-status").innerText = matchCrrStatus;
 
-          // Update the HTML elements with the fetched data
-          document.getElementById("status").innerText = stats;
-          document.getElementById("score").innerText = score;
-          document.getElementById("wickets").innerText = wickets;
-          document.getElementById("overs").innerText = overs;
+            // Score
+            document.getElementById("status").innerText = stats;
+            document.getElementById("score").innerText = score;
+            document.getElementById("wickets").innerText = wickets;
+            document.getElementById("overs").innerText = overs;
 
-          try {
-            const batsmanMap = new Map();
-            const commentaryList = json.commentaryList;
+            try {
+              const batsmanMap = new Map();
+              const commentaryList = json.commentaryList;
 
-            for (let i = 0; i < commentaryList.length; i++) {
-              const batsman = commentaryList[i].batsmanStriker;
-              const batId = batsman.batId;
+              for (let i = 0; i < commentaryList.length; i++) {
+                const batsman = commentaryList[i].batsmanStriker;
+                const batId = batsman.batId;
 
-              if (!batsmanMap.has(batId)) {
-                batsmanMap.set(batId, batsman);
+                if (!batsmanMap.has(batId)) {
+                  batsmanMap.set(batId, batsman);
 
-                const batName = batsman.batName;
-                const batRuns = batsman.batRuns;
-                const batBalls = batsman.batBalls;
+                  const batName = batsman.batName;
+                  const batRuns = batsman.batRuns;
+                  const batBalls = batsman.batBalls;
 
-                if (batName && batRuns && batBalls) {
-                  // Create HTML elements for batsman details
-                  const batsmanContainer = document.createElement("div");
-                  batsmanContainer.className = "player-container";
+                  if (batName && batRuns && batBalls) {
+                    // Create HTML elements for batsman details
+                    const batsmanContainer = document.createElement("div");
+                    batsmanContainer.className = "player-container";
 
-                  const batsmanDetails = document.createElement("div");
-                  batsmanDetails.className = "player-details";
+                    const batsmanDetails = document.createElement("div");
+                    batsmanDetails.className = "player-details";
 
-                  const batsmanName = document.createElement("div");
-                  batsmanName.className = "player-name";
-                  batsmanName.innerText = batName;
+                    const batsmanName = document.createElement("div");
+                    batsmanName.className = "player-name";
+                    batsmanName.innerText = batName;
 
-                  const batsmanStats = document.createElement("div");
-                  batsmanStats.className = "player-stat";
-                  batsmanStats.innerText = `Runs: ${batRuns}, Balls Played: ${batBalls}`;
+                    const batsmanStats = document.createElement("div");
+                    batsmanStats.className = "player-stat";
+                    batsmanStats.innerText = `Runs: ${batRuns}, Balls Played: ${batBalls}`;
 
-                  // Append the batsman elements to the container
-                  batsmanDetails.appendChild(batsmanName);
-                  batsmanDetails.appendChild(batsmanStats);
-                  batsmanContainer.appendChild(batsmanDetails);
+                    // Append the batsman elements to the container
+                    batsmanDetails.appendChild(batsmanName);
+                    batsmanDetails.appendChild(batsmanStats);
+                    batsmanContainer.appendChild(batsmanDetails);
 
-                  // Append the batsman container to the document
-                  document.body.appendChild(batsmanContainer);
+                    // Append the batsman container to the document
+                    document.body.appendChild(batsmanContainer);
+                  }
                 }
               }
+            } catch (error) {
+              console.log("May be Stumps - ", error);
             }
-          } catch (error) {
-            console.log("May be Stumps - ", error);
-          }
 
-          const bowler = miniscore.bowlerStriker;
-          const bowlName = bowler.bowlName;
-          const o_summary = miniscore.recentOvsStats;
+            const bowler = miniscore.bowlerStriker;
+            const bowlName = bowler.bowlName;
+            const o_summary = miniscore.recentOvsStats;
 
-          if (bowlName && overs) {
-            // Create HTML elements for bowler details
-            const bowlerContainer = document.createElement("div");
-            bowlerContainer.className = "player-container";
+            if (bowlName && overs) {
+              // Create HTML elements for bowler details
+              const bowlerContainer = document.createElement("div");
+              bowlerContainer.className = "player-container";
 
-            const bowlerDetails = document.createElement("div");
-            bowlerDetails.className = "player-details";
+              const bowlerDetails = document.createElement("div");
+              bowlerDetails.className = "player-details";
 
-            const bowlerName = document.createElement("div");
-            bowlerName.className = "player-name";
-            bowlerName.innerText = bowlName;
+              const bowlerName = document.createElement("div");
+              bowlerName.className = "player-name";
+              bowlerName.innerText = bowlName;
 
-            const bowlerStats = document.createElement("div");
-            bowlerStats.className = "player-stat";
-            bowlerStats.innerText = `Overs Summary: ${o_summary}`;
+              const bowlerStats = document.createElement("div");
+              bowlerStats.className = "player-stat";
+              bowlerStats.innerText = `Overs Summary: ${o_summary}`;
 
-            // Append the bowler elements to the container
-            bowlerDetails.appendChild(bowlerName);
-            bowlerDetails.appendChild(bowlerStats);
-            bowlerContainer.appendChild(bowlerDetails);
+              // Append the bowler elements to the container
+              bowlerDetails.appendChild(bowlerName);
+              bowlerDetails.appendChild(bowlerStats);
+              bowlerContainer.appendChild(bowlerDetails);
 
-            // Append the bowler container to the document
-            document.body.appendChild(bowlerContainer);
-          }
-        })
-        .catch((error) => {
-          hideLoader(); // Hide the loader
-          console.log("Error fetching data:", error);
-        });
-    }
-
-    function checkInternetConnection() {
-      const internetBar = document.getElementById("internet-bar");
-      if (navigator.onLine) {
-        internetBar.classList.remove("no-internet");
-        internetBar.innerText = "Internet Connection OK";
-      } else {
-        internetBar.classList.add("no-internet");
-        internetBar.innerText = "No Internet Connection";
+              // Append the bowler container to the document
+              document.body.appendChild(bowlerContainer);
+            }
+          })
+          .catch((error) => {
+            hideLoader(); // Hide the loader
+            console.log("Error fetching data:", error);
+          });
       }
-    }
 
-    function showLoader() {
-      const loader = document.createElement("div");
-      loader.className = "loader";
-      document.body.appendChild(loader);
-    }
-
-    function hideLoader() {
-      const loader = document.querySelector(".loader");
-      if (loader) {
-        loader.remove();
+      function checkInternetConnection() {
+        const internetBar = document.getElementById("internet-bar");
+        if (navigator.onLine) {
+          internetBar.classList.remove("no-internet");
+          internetBar.innerText = "Internet Connection OK";
+        } else {
+          internetBar.classList.add("no-internet");
+          internetBar.innerText = "No Internet Connection";
+        }
       }
-    }
-    
-    // Function to refresh the page and fetch data every 20 seconds
-    function refreshPage() {
-      showLoader();
-      setTimeout(() => {
-        fetchData();
-        checkInternetConnection();
-        refreshPage(); // Add this line to call refreshPage() again after 20 seconds
-      }, 20000);
-    }
 
-    refreshPage();
-    
-  </script>
-</body>
+      function showLoader() {
+        const loader = document.createElement("div");
+        loader.className = "loader";
+        document.body.appendChild(loader);
+      }
+
+      function hideLoader() {
+        const loader = document.querySelector(".loader");
+        if (loader) {
+          loader.remove();
+        }
+      }
+
+      // Function to refresh the page and fetch data every 20 seconds
+      function refreshPage() {
+        showLoader();
+        setTimeout(() => {
+          fetchData();
+          checkInternetConnection();
+          refreshPage(); // Add this line to call refreshPage() again after 20 seconds
+        }, 20000);
+      }
+
+      refreshPage();
+    </script>
+  </body>
 </html>
-
